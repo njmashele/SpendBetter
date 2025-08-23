@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using SpendBetter.Models;
+
 namespace SpendBetter
 {
     public class Program
@@ -8,6 +11,8 @@ namespace SpendBetter
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddDbContext<SpendBetterDbContext>(options => options.UseInMemoryDatabase("SpendBetterDb"));
 
             var app = builder.Build();
 

@@ -8,9 +8,12 @@ namespace SpendBetter.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly SpendBetterDbContext _context;
+
+        public HomeController(ILogger<HomeController> logger, SpendBetterDbContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
@@ -20,12 +23,22 @@ namespace SpendBetter.Controllers
 
         public IActionResult Expenses()
         {
-            return View();
+            var allExpenses = _context.Expenses.ToList();
+            return View(allExpenses);
         }
 
         public IActionResult CreateEditExpense()
         {
             return View();
+        }
+
+        public IActionResult CreateEditExpenseForm(Expense model)
+        {
+            _context.Expenses.Add(model);
+
+            _context.SaveChanges();
+
+            return RedirectToAction("Expenses");
         }
         public IActionResult Privacy()
         {

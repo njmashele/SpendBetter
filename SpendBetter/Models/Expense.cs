@@ -4,7 +4,7 @@ namespace SpendBetter.Models
 {
     public class Expense
     {
-        public int id {  get; set; }
+        public int Id {  get; set; }
         public int Value { get; set; }
 
         [Required]
